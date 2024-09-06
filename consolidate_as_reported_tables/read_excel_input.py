@@ -17,7 +17,7 @@ class Read_Excel_Input:
         # read excel input
         self.read_excel_input(input_excel_file)
         
-        # Initilize attributes for processing raw data
+        # Initialize attributes for processing raw data
         self._raw_data = list()  # a list of Records
         self.items = pd.DataFrame(columns=['raw_name', 'source', 'name',]) \
             .astype({'raw_name': str, 'source': str, 'name': str})
@@ -106,7 +106,11 @@ class Read_Excel_Input:
         """
         
         value = self._clean_raw_value(raw_value)
-        item = self._register_item(raw_item, raw_source)
+        try:
+            item = self._register_item(raw_item, raw_source)
+        except:
+            raise ValueError(f"raw_item: {raw_item}, raw_source: {raw_source}")
+        
         row_num = int(row_num)
             
         # register/udpate self.data
